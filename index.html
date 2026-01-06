@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Vibe Coding Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+        
+        /* Utilities */
+        .container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .container-narrow {
+            max-width: 896px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Navigation */
+        nav {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+        }
+        
+        .nav-links a {
+            color: #475569;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: #0f172a;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 3.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, #1e293b, transparent);
+            margin: 2rem auto;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #475569;
+            max-width: 42rem;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .hero-stat-number {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        
+        .stat-divider {
+            width: 1px;
+            background: #e2e8f0;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: 3rem 0;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn:hover {
+            color: #0f172a;
+        }
+        
+        .filter-btn.active {
+            color: #0f172a;
+            border-bottom-color: #0f172a;
+        }
+        
+        /* Projects Grid */
+        .projects-section {
+            padding: 5rem 0;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        .project-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .project-category {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+        
+        .project-description {
+            color: #475569;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-tag {
+            font-size: 0.75rem;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+        }
+        
+        .project-link {
+            font-size: 0.875rem;
+            color: #0f172a;
+            font-weight: 500;
+            transition: text-decoration 0.2s;
+        }
+        
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text {
+            font-size: 1.125rem;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .about-item h4 {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .about-item p {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-text {
+            font-size: 1.125rem;
+            color: #475569;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            padding: 0.75rem 2rem;
+            background: #0f172a;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background: #1e293b;
+        }
+        
+        .btn-secondary {
+            padding: 0.75rem 2rem;
+            border: 1px solid #0f172a;
+            color: #0f172a;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: #f8fafc;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 48rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .modal-inner {
+            padding: 3rem;
+        }
+        
+        .modal-close {
+            float: right;
+            font-size: 2rem;
+            color: #cbd5e1;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        
+        .modal-close:hover {
+            color: #0f172a;
+        }
+        
+        .modal-category {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .modal-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-type {
+            font-size: 1.125rem;
+            color: #475569;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        
+        .modal-description {
+            color: #475569;
+            line-height: 1.8;
+        }
+        
+        .modal-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .modal-skill-tag {
+            font-size: 0.875rem;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.5rem 1rem;
+        }
+        
+        .modal-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .modal-example {
+            border-left: 2px solid #cbd5e1;
+            padding-left: 1rem;
+            color: #475569;
+        }
+        
+        .modal-impact {
+            background: #f8fafc;
+            border-left: 4px solid #0f172a;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .modal-impact h3 {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-impact p {
+            color: #475569;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .modal-btn-primary {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            background: #0f172a;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .modal-btn-primary:hover {
+            background: #1e293b;
+        }
+        
+        .modal-btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #0f172a;
+            color: #0f172a;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .modal-btn-secondary:hover {
+            background: #f8fafc;
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #64748b;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-links a {
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: #0f172a;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <h1 class="nav-title serif">Portfolio</h1>
+                <div class="nav-links">
+                    <a href="#projects">Projects</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container-narrow">
+            <h2 class="serif">AI & Vibe Coding Portfolio</h2>
+            <div class="divider"></div>
+            <p class="hero-subtitle">
+                Bridging strategic vision and technical execution through AI-powered solutions and rapid prototyping
+            </p>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-number serif">6</div>
+                    <div>Projects</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div>
+                    <div class="hero-stat-number serif">3</div>
+                    <div>Vibe Coding</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div>
+                    <div class="hero-stat-number serif">3</div>
+                    <div>AI Prompts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section id="projects" class="filter-section">
+        <div class="container">
+            <div class="filter-buttons">
+                <button onclick="filterProjects('all')" id="btn-all" class="filter-btn active">
+                    All Projects
+                </button>
+                <button onclick="filterProjects('vibe-coding')" id="btn-vibe-coding" class="filter-btn">
+                    Vibe Coding
+                </button>
+                <button onclick="filterProjects('prompts')" id="btn-prompts" class="filter-btn">
+                    AI Prompts
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+        <div class="container">
+            <div id="projectsGrid" class="projects-grid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container-narrow">
+            <h3 class="about-title serif">About This Portfolio</h3>
+            <div class="divider"></div>
+            <p class="about-text">
+                This portfolio showcases the intersection of business strategy, artificial intelligence, and rapid prototyping. Each project demonstrates the ability to identify business problems and quickly develop solutions using modern AI tools and coding techniques.
+            </p>
+            <div class="about-grid">
+                <div class="about-item">
+                    <h4>Strategic Thinking</h4>
+                    <p>Business-first approach to technology solutions</p>
+                </div>
+                <div class="about-item">
+                    <h4>Technical Execution</h4>
+                    <p>Rapid prototyping and functional implementations</p>
+                </div>
+                <div class="about-item">
+                    <h4>AI Integration</h4>
+                    <p>Leveraging cutting-edge AI capabilities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container-narrow">
+            <h3 class="contact-title serif">Get In Touch</h3>
+            <div class="divider"></div>
+            <p class="contact-text">
+                Interested in collaboration or learning more about these projects?
+            </p>
+            <div class="contact-buttons">
+                <a href="mailto:your.email@example.com" class="btn-primary">
+                    Email Me
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn-secondary">
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-inner">
+                <button onclick="closeModal()" class="modal-close">&times;</button>
+                <div style="clear: both; margin-bottom: 2rem;">
+                    <span id="modalCategory" class="modal-category"></span>
+                    <h2 id="modalTitle" class="modal-title serif"></h2>
+                    <p id="modalType" class="modal-type"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Overview</h3>
+                    <p id="modalDescription" class="modal-description"></p>
+                </div>
+
+                <div class="modal-section" style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+                    <h3 class="modal-section-title">Skills & Technologies</h3>
+                    <div id="modalSkills" class="modal-skills"></div>
+                </div>
+
+                <div id="modalExamplesSection" class="modal-section hidden" style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+                    <h3 class="modal-section-title">Example Applications</h3>
+                    <div id="modalExamples" class="modal-examples"></div>
+                </div>
+
+                <div class="modal-impact">
+                    <h3>Business Impact</h3>
+                    <p id="modalImpact"></p>
+                </div>
+
+                <div id="modalButtons" class="modal-buttons"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Portfolio. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const projects = [
+            {
+                id: 1,
+                title: "Market Analysis Dashboard",
+                category: "vibe-coding",
+                type: "Interactive Business Intelligence Tool",
+                description: "A comprehensive competitive analysis dashboard featuring real-time data visualization, market trend tracking, and automated reporting. Built to provide executives with actionable insights at a glance, this tool integrates multiple data sources and presents them through an intuitive interface.",
+                skills: ["React", "Data Visualization", "Business Intelligence", "API Integration"],
+                impact: "Reduced market research time by 60% and enabled real-time decision making for strategic initiatives",
+                demo: "View Live Demo"
+            },
+            {
+                id: 2,
+                title: "Strategic Planning Prompt Library",
+                category: "prompts",
+                type: "AI-Powered Strategic Framework Collection",
+                description: "A curated collection of sophisticated AI prompts designed for strategic business analysis. Includes templates for SWOT analysis, Porter's Five Forces, competitive positioning, and market entry strategies. Each prompt is optimized for generating actionable insights and detailed strategic recommendations.",
+                skills: ["Strategic Analysis", "Prompt Engineering", "Business Strategy", "Competitive Intelligence"],
+                impact: "Generated actionable insights for 15+ case studies and reduced strategic analysis time by 70%",
+                examples: ["SWOT Analysis Framework", "Competitive Positioning Strategy", "Market Entry Evaluation", "Industry Analysis Templates"]
+            },
+            {
+                id: 3,
+                title: "Financial Model Generator",
+                category: "vibe-coding",
+                type: "Automated Financial Analysis Application",
+                description: "An interactive web-based tool that automates the creation of pro forma financial statements, DCF models, and scenario analysis. Features include sensitivity tables, automated calculations, and professional-grade visualizations suitable for investor presentations.",
+                skills: ["JavaScript", "Financial Modeling", "Excel Integration", "Automation"],
+                impact: "Accelerated financial projections by 75% and improved accuracy through standardized methodologies",
+                demo: "Try Interactive Demo"
+            },
+            {
+                id: 4,
+                title: "Customer Persona Development Framework",
+                category: "prompts",
+                type: "AI-Driven Market Research Tool",
+                description: "A structured prompt framework for developing comprehensive customer personas across B2B and B2C contexts. Incorporates demographic analysis, psychographic profiling, pain point identification, and journey mapping. Generates detailed, actionable personas that inform marketing strategy and product development.",
+                skills: ["Market Research", "Customer Insights", "Segmentation", "Journey Mapping"],
+                impact: "Created 20+ validated personas across multiple industries, informing product strategy for three major launches",
+                examples: ["B2B Decision Maker Profiles", "Consumer Segment Analysis", "Buyer Journey Mapping", "Pain Point Identification"]
+            },
+            {
+                id: 5,
+                title: "Pitch Deck Analyzer",
+                category: "vibe-coding",
+                type: "AI-Powered Investment Analysis Tool",
+                description: "An intelligent analysis tool that evaluates investor pitch decks across multiple dimensions including market opportunity, business model clarity, competitive positioning, and financial projections. Provides scored assessments and specific improvement recommendations based on successful fundraising patterns.",
+                skills: ["React", "Natural Language Processing", "Venture Capital", "Document Analysis"],
+                impact: "Analyzed 50+ pitch decks with structured feedback, contributing to three successful funding rounds",
+                demo: "Upload and Analyze"
+            },
+            {
+                id: 6,
+                title: "Business Writing Assistant",
+                category: "prompts",
+                type: "Professional Communication Framework",
+                description: "A comprehensive prompt template library for executive-level business communication. Includes formats for executive summaries, investment memos, strategic recommendations, board presentations, and case study analyses. Each template is optimized for clarity, impact, and professional polish.",
+                skills: ["Business Communication", "Executive Writing", "Strategic Documentation", "Presentation Design"],
+                impact: "Improved writing quality across 100+ documents and reduced drafting time by 50%",
+                examples: ["Executive Summary Templates", "Investment Memo Frameworks", "Case Study Analysis", "Board Presentation Outlines"]
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            const filtered = currentFilter === 'all' ? projects : projects.filter(p => p.category === currentFilter);
+            
+            grid.innerHTML = filtered.map(project => `
+                <div class="project-card" onclick="openModal(${project.id})">
+                    <div class="project-category">${project.category === 'vibe-coding' ? 'Vibe Coding' : 'AI Prompts'}</div>
+                    <h3 class="project-title serif">${project.title}</h3>
+                    <p class="project-description">${project.description.substring(0, 150)}...</p>
+                    <div class="project-skills">
+                        ${project.skills.slice(0, 3).map(skill => `
+                            <span class="skill-tag">${skill}</span>
+                        `).join('')}
+                    </div>
+                    <div class="project-link">View Project →</div>
+                </div>
+            `).join('');
+        }
+
+        function filterProjects(filter) {
+            currentFilter = filter;
+            
+            ['all', 'vibe-coding', 'prompts'].forEach(f => {
+                const btn = document.getElementById(`btn-${f}`);
+                if (f === filter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            renderProjects();
+        }
+
+        function openModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            const modal = document.getElementById('projectModal');
+            
+            document.getElementById('modalCategory').textContent = project.category === 'vibe-coding' ? 'Vibe Coding' : 'AI Prompts';
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalType').textContent = project.type;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalImpact').textContent = project.impact;
+            
+            document.getElementById('modalSkills').innerHTML = project.skills.map(skill => 
+                `<span class="modal-skill-tag">${skill}</span>`
+            ).join('');
+            
+            if (project.examples) {
+                document.getElementById('modalExamplesSection').classList.remove('hidden');
+                document.getElementById('modalExamples').innerHTML = project.examples.map(example =>
+                    `<div class="modal-example">${example}</div>`
+                ).join('');
+            } else {
+                document.getElementById('modalExamplesSection').classList.add('hidden');
+            }
+            
+            if (project.demo) {
+                document.getElementById('modalButtons').innerHTML = `
+                    <button class="modal-btn-primary">${project.demo}</button>
+                    <button class="modal-btn-secondary">View Code</button>
+                `;
+            } else {
+                document.getElementById('modalButtons').innerHTML = '';
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'projectModal') {
+                document.getElementById('projectModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Initialize
+        renderProjects();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
