@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAM/SAM Market Estimator - MBA Portfolio Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>TAM/SAM Market Estimator</h1>
+            <p class="subtitle">Data-driven market sizing for founders and strategists</p>
+        </header>
+
+        <div class="tool-layout">
+            <!-- Left Panel: Inputs -->
+            <div class="input-panel">
+                <section class="card">
+                    <h2>1. Industry Selection</h2>
+                    <div class="form-group">
+                        <label for="industry">Select Industry Sector</label>
+                        <select id="industry" class="input-field">
+                            <option value="">-- Choose a sector --</option>
+                            <option value="saas">Cloud/SaaS Software</option>
+                            <option value="fintech">FinTech & Digital Payments</option>
+                            <option value="healthtech">HealthTech & Digital Health</option>
+                            <option value="ecommerce">E-commerce & Retail Tech</option>
+                            <option value="edtech">EdTech & Learning Platforms</option>
+                            <option value="custom">Custom Industry (Enter Your Own)</option>
+                        </select>
+                    </div>
+
+                    <div id="customIndustryFields" class="custom-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="customIndustryName">Industry Name</label>
+                            <input type="text" id="customIndustryName" class="input-field" placeholder="e.g., PropTech, AgriTech">
+                        </div>
+                        <div class="form-group">
+                            <label for="customMarketSize">Global Market Size (USD Billions)</label>
+                            <input type="number" id="customMarketSize" class="input-field" placeholder="e.g., 50" step="0.1" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="customCAGR">Annual Growth Rate (CAGR %)</label>
+                            <input type="number" id="customCAGR" class="input-field" placeholder="e.g., 15.5" step="0.1" min="0" max="100">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>2. Market Segmentation</h2>
+                    
+                    <div class="form-group">
+                        <label for="geography">Geographic Focus</label>
+                        <select id="geography" class="input-field">
+                            <option value="global">Global Market</option>
+                            <option value="north-america">North America</option>
+                            <option value="us">United States Only</option>
+                            <option value="europe">Europe</option>
+                            <option value="asia-pacific">Asia-Pacific</option>
+                            <option value="latam">Latin America</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerType">Customer Segment</label>
+                        <select id="customerType" class="input-field">
+                            <option value="b2b">B2B (Business to Business)</option>
+                            <option value="b2c">B2C (Business to Consumer)</option>
+                            <option value="b2b2c">B2B2C (Platform Model)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="companyTypeGroup">
+                        <label for="companySize">Target Company Size (B2B)</label>
+                        <select id="companySize" class="input-field">
+                            <option value="all">All Company Sizes</option>
+                            <option value="smb">SMB (1-500 employees)</option>
+                            <option value="mid-market">Mid-Market (500-5,000 employees)</option>
+                            <option value="enterprise">Enterprise (5,000+ employees)</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>3. Business Model Assumptions</h2>
+                    
+                    <div class="form-group">
+                        <label for="penetration">Target Market Penetration (%)</label>
+                        <input type="number" id="penetration" class="input-field" value="5" min="0.1" max="100" step="0.1">
+                        <small class="helper-text">What % of the serviceable market can you realistically capture?</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeHorizon">Time Horizon (Years)</label>
+                        <select id="timeHorizon" class="input-field">
+                            <option value="3">3 Years</option>
+                            <option value="5" selected>5 Years</option>
+                            <option value="7">7 Years</option>
+                            <option value="10">10 Years</option>
+                        </select>
+                    </div>
+                </section>
+
+                <button id="calculateBtn" class="calculate-btn">Calculate Market Opportunity</button>
+            </div>
+
+            <!-- Right Panel: Results -->
+            <div class="results-panel">
+                <div id="resultsPlaceholder" class="placeholder">
+                    <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <p>Configure your market parameters and click "Calculate Market Opportunity" to see your TAM/SAM analysis</p>
+                </div>
+
+                <div id="resultsContent" style="display: none;">
+                    <div class="results-header">
+                        <h2 id="resultsTitle">Market Opportunity Analysis</h2>
+                        <div class="market-meta" id="marketMeta"></div>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card tam-card">
+                            <div class="metric-label">Total Addressable Market (TAM)</div>
+                            <div class="metric-value" id="tamValue">$0B</div>
+                            <div class="metric-growth" id="tamGrowth"></div>
+                            <div class="metric-description">Total demand for your product category globally</div>
+                        </div>
+
+                        <div class="metric-card sam-card">
+                            <div class="metric-label">Serviceable Addressable Market (SAM)</div>
+                            <div class="metric-value" id="samValue">$0B</div>
+                            <div class="metric-growth" id="samGrowth"></div>
+                            <div class="metric-description">Portion of TAM you can realistically serve based on geography and segment</div>
+                        </div>
+
+                        <div class="metric-card som-card">
+                            <div class="metric-label">Serviceable Obtainable Market (SOM)</div>
+                            <div class="metric-value" id="somValue">$0B</div>
+                            <div class="metric-growth" id="somGrowth"></div>
+                            <div class="metric-description">Realistic market share you can capture in the near term</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-section card">
+                        <h3>Market Growth Projection</h3>
+                        <canvas id="growthChart"></canvas>
+                    </div>
+
+                    <div class="assumptions-section card">
+                        <h3>Key Assumptions</h3>
+                        <div id="assumptionsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="sources-section">
+            <h3>Data Sources & Methodology</h3>
+            <div id="sourcesList" class="sources-content">
+                <p>Market data sources will appear here after calculation.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
