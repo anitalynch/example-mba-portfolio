@@ -697,13 +697,14 @@
         const projects = [
             {
                 id: 1,
-                title: "Market Analysis Dashboard",
+                title: "Total Addressable Market (TAM) Estimator",
                 category: "vibe-coding",
-                type: "Interactive Business Intelligence Tool",
-                description: "A comprehensive competitive analysis dashboard featuring real-time data visualization, market trend tracking, and automated reporting. Built to provide executives with actionable insights at a glance, this tool integrates multiple data sources and presents them through an intuitive interface.",
-                skills: ["React", "Data Visualization", "Business Intelligence", "API Integration"],
-                impact: "Reduced market research time by 60% and enabled real-time decision making for strategic initiatives",
-                demo: "View Live Demo"
+                type: "Interactive Market Sizing Tool",
+                description: "A data-driven market estimation tool for founders and strategists. Features 5 pre-loaded industry sectors with real market data from Gartner, Statista, and Fortune Business Insights. Calculates Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Serviceable Obtainable Market (SOM) using venture capital-standard methodologies. Includes geographic segmentation, customer type filtering, and interactive growth projections with Chart.js visualization.",
+                skills: ["JavaScript", "Market Analysis", "Data Visualization with Chart.js", "Basic App Coding Skills"],
+                impact: "Enables rapid market sizing with properly cited sources, reducing research time from hours to minutes",
+                demo: "View Demo"
+                demoUrl: "./tam-sam-estimator/"
             },
             {
                 id: 2,
@@ -817,9 +818,17 @@
             }
             
             if (project.demo) {
+                const demoButton = project.demoUrl
+                ? `<a href="${project.demoUrl}" target="_blank" class="modal-btn-primary">${project.demo}</a>`
+                : `<button class="modal-btn-primary">${project.demo}</button>`;
+
+                const codeButton = project.demoUrl
+                ? `<a href="https://github.com/anitalynch/example-mba-portfolio/tree/main/tam-sam-estimator" target="_blank" class="modal-btn-secondary">View Code</a>`
+                : `<button class="modal-btn-secondary">View Code</button>`;
+                
                 document.getElementById('modalButtons').innerHTML = `
-                    <button class="modal-btn-primary">${project.demo}</button>
-                    <button class="modal-btn-secondary">View Code</button>
+                    ${demoButton}
+                    ${codeButton}
                 `;
             } else {
                 document.getElementById('modalButtons').innerHTML = '';
